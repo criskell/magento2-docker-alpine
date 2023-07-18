@@ -9,7 +9,7 @@ services:
         GROUP_ID:
         TIMEZONE:
     ports:
-      - 80:8080
+      - 8080:80
     depends_on:
       - mysql
     env_file: .env
