@@ -1,0 +1,33 @@
+version: "3.1"
+
+services:
+  app:
+    build:
+      context: .docker
+      args:
+        USER_ID:
+        GROUP_ID:
+        TIMEZONE:
+    ports:
+      - 80:8080
+    depends_on:
+      - mysql
+    env_file: .env
+    volumes:
+        - .:/home/app/workspace
+
+  mysql:
+    image: mysql:8.0
+    env_file: .env
+    environment:
+      MYSQL_ROOT_PASSWORD: magento
+      MYSQL_DATABASE: magento
+      MYSQL_USER: magento
+      MYSQL_PASSWORD: magento
+      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
