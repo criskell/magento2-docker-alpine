@@ -1,18 +1,11 @@
 #!/usr/bin/env bash
 
 if [ ! -s web/bin/magento ]; then
+    echo "Waiting for MySQL..."
+
+    curl -sSL https://raw.githubusercontent.com/eficode/wait-for/v2.2.3/wait-for | sh -s -- mysql:3306 -t 0
+
     composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition web
-
-    installerPath=web/setup/src/Magento/Setup/Model/Installer.php
-
-    # This checks takes all of my RAM.
-    cp $installerPath $installerPath.bkp
-    sed -i "/\s*\$script\[\] = \['File permissions check...', 'checkInstallationFilePermissions', \[\]\];/d" $installerPath
-    sed -i "/\s*\$script\[\] = \['Required extensions check...', 'checkExtensions', \[\]\];/d" $installerPath
-
-    bin/magento module:status | grep -v Magento | grep -v List | grep -v None | grep -v -e '^$'| xargs php bin/magento module:disable
-    bin/magento cache:clean
-    bin/magento setup:upgrade
 
     web/bin/magento setup:install --base-url=http://0.0.0.0:8080/ \
     --db-host=mysql --db-name=magento \
