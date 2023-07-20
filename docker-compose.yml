@@ -12,6 +12,7 @@ services:
       - 8080:80
     depends_on:
       - mysql
+      - elasticsearch
     env_file: .env
     volumes:
         - .:/home/app/workspace
@@ -20,14 +21,21 @@ services:
     image: mysql:8.0
     env_file: .env
     environment:
-      MYSQL_ROOT_PASSWORD: magento
-      MYSQL_DATABASE: magento
-      MYSQL_USER: magento
-      MYSQL_PASSWORD: magento
-      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+      - MYSQL_ROOT_PASSWORD=magento
+      - MYSQL_DATABASE=magento
+      - MYSQL_USER=magento
+      - MYSQL_PASSWORD=magento
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
     volumes:
-      - mysql-data:/var/lib/mysql
+      - ./data/mysql:/var/lib/mysql
 
-volumes:
-  mysql-data:
+  elasticsearch:
+    image: elasticsearch:7.17.10
+    environment:
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - discovery.type=single-node
+      - cluster.routing.allocation.disk.threshold_enabled=false
+      - index.blocks.read_only_allow_delete
+    volumes:
+      - ./data/elasticsearch:/usr/share/elasticsearch/data

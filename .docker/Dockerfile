@@ -5,6 +5,7 @@ RUN echo $TIMEZONE > /etc/timezone
 
 RUN apk update && apk upgrade && apk add \
     zip unzip curl wget git bash \
+    busybox-suid \
     php81 \
     php81-gd php81-zlib php81-zip php81-curl \
     php81-mysqli php81-pdo_mysql \
@@ -14,9 +15,11 @@ RUN apk update && apk upgrade && apk add \
     php81-bcmath \
     php81-sockets php81-soap php81-xsl php81-sodium \
     php81-fileinfo \
-    php81-session
+    php81-session \
+    php81-ctype
 
 RUN wget https://getcomposer.org/composer-stable.phar -O /usr/local/bin/composer && chmod +x /usr/local/bin/composer
+RUN wget https://raw.githubusercontent.com/eficode/wait-for/v2.2.3/wait-for -O /usr/local/bin/wait-for && chmod +x /usr/local/bin/wait-for
 
 RUN sed -i "s/bin\/ash/bin\/bash/g" /etc/passwd
 

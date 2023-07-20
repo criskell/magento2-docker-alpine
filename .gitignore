@@ -1,3 +1,5 @@
 .env
 web
 .composer
+wait-for.sh
+data

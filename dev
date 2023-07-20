@@ -3,4 +3,6 @@
 export USER_ID=$(id -u $USER)
 export GROUP_ID=$(id -g $USER)
 
+mkdir -p data/mysql data/elasticsearch
+
 docker compose ${@:-up --build --remove-orphans}
