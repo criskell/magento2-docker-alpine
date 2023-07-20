@@ -39,3 +39,5 @@ services:
       - index.blocks.read_only_allow_delete
     volumes:
       - ./data/elasticsearch:/usr/share/elasticsearch/data
+    # profiles:
+      # - donotstart

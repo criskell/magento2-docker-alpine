@@ -3,3 +3,5 @@ web
 .composer
 wait-for.sh
 data
+docker-compose.yml
+db.sql
