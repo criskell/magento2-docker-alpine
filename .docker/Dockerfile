@@ -6,25 +6,25 @@ RUN echo $TIMEZONE > /etc/timezone
 RUN apk update && apk upgrade && apk add \
     zip unzip curl wget git bash \
     busybox-suid \
-    php81 \
-    php81-gd php81-zlib php81-zip php81-curl \
-    php81-mysqli php81-pdo_mysql \
-    php81-phar php81-pecl-xdebug \
-    php81-mbstring php81-tokenizer \
-    php81-xml php81-intl php81-xmlwriter php81-xmlreader php81-simplexml php81-iconv \
-    php81-bcmath \
-    php81-sockets php81-soap php81-xsl php81-sodium \
-    php81-fileinfo \
-    php81-session \
-    php81-ctype
+    php82 \
+    php82-gd php82-zlib php82-zip php82-curl \
+    php82-mysqli php82-pdo_mysql \
+    php82-phar php82-pecl-xdebug \
+    php82-mbstring php82-tokenizer \
+    php82-xml php82-intl php82-xmlwriter php82-xmlreader php82-simplexml php82-iconv \
+    php82-bcmath \
+    php82-sockets php82-soap php82-xsl php82-sodium \
+    php82-fileinfo \
+    php82-session \
+    php82-ctype
 
 RUN wget https://getcomposer.org/composer-stable.phar -O /usr/local/bin/composer && chmod +x /usr/local/bin/composer
 RUN wget https://raw.githubusercontent.com/eficode/wait-for/v2.2.3/wait-for -O /usr/local/bin/wait-for && chmod +x /usr/local/bin/wait-for
 
 RUN sed -i "s/bin\/ash/bin\/bash/g" /etc/passwd
 
-COPY conf/php.ini-development /etc/php81/php.ini
-COPY conf/xdebug.ini /etc/php81/conf.d/xdebug.ini
+COPY conf/php.ini-development /etc/php82/php.ini
+COPY conf/xdebug.ini /etc/php82/conf.d/xdebug.ini
 COPY bin/startup.sh /usr/local/bin/startup.sh
 
 ARG USER_ID

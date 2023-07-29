@@ -45,4 +45,4 @@ if [ ! -n $SEARCH_ENGINE_DISABLED ]; then
     web/bin/magento cron:run --group index
 fi
 
-php -S 0.0.0.0:80 -t ./web/pub/ ./router.php
+php82 -S 0.0.0.0:80 -t ./web/pub/ ./router.php
